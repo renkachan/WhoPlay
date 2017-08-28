@@ -1,0 +1,26 @@
+package matchmaking.com.whoplay;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+/**
+ * Created by robert.arifin on 08/08/2017.
+ */
+
+public class MatchPlayers {
+    String matchType;
+    //public MatchPlayers (String matchType)  {
+   //     this.matchType = matchType;
+   // }
+    public ArrayList<Integer>  whoPlayedMin ()   {
+        ArrayList<Integer> playedTimes = new ArrayList<>();
+        int totalOfPlayer = DataManager.getInstance().playerData.size();
+        for ( int i = 0; i < totalOfPlayer; i++) {
+                   playedTimes.add(DataManager.getInstance().playerData.get(i).getPlayedTimes());
+                }
+        Collections.sort(playedTimes);
+        return playedTimes;
+    }
+}
