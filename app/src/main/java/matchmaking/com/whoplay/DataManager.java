@@ -15,6 +15,7 @@ public class DataManager {
         return mInstance;
     }
     ArrayList<PlayerData> playerData;
+    ArrayList<PlayerData> playerDataInDb;
     int payed = 0;
     int setPayment = 0;
     String matchType = "";
@@ -23,6 +24,7 @@ public class DataManager {
 
     private DataManager() {
         playerData = new ArrayList<PlayerData>();
+        playerDataInDb = new ArrayList<PlayerData>();
     }
 
 }

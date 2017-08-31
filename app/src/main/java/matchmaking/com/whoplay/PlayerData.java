@@ -7,14 +7,13 @@ package matchmaking.com.whoplay;
 public class PlayerData {
     String name;
     int playedTimes;
+    int totalPlayedTimes;
 
-    public PlayerData(String name) {
+    public PlayerData(String name,int totalPlayedTimes) {
         this.name = name;
         playedTimes = 0;
-    }
+        this.totalPlayedTimes = totalPlayedTimes;
 
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void addPlayedTimes() {

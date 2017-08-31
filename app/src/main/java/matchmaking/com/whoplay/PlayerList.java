@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 /**
  * Created by Hubert on 7/28/2017.
@@ -67,16 +65,31 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
     public void addPlayer (Dialog dialog) {
         EditText playerName = (EditText) dialog.findViewById(R.id.etxt_player_name);
         String strPlayerName = playerName.getText().toString();
-        PlayerData newData = new PlayerData(playerName.getText().toString());
+        PlayerData newData = new PlayerData(playerName.getText().toString(), 0);
         if (TextUtils.isEmpty(strPlayerName)) {
             playerName.setError("The field cannot be empty");
         }
         else    {
             DataManager.getInstance().playerData.add(newData);
+           // updateDB(newData.getName());
             updateUI();
             dialog.dismiss();
         }
     }
+
+    public void goToDBActivity (View v)
+    {
+        Intent i = new Intent(this , PlayerListDB.class);
+        startActivity(i);
+    }
+//
+//    public  void updateDB (String newPlayerData)
+//    {
+//        DBHandler handler = new DBHandler(this);
+//        DBContract.TABLE_USERS.insertData(
+//                handler.getWritableDatabase() , newPlayerData, "0");
+//        handler.close();
+//    }
 
     public void onDelete(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
