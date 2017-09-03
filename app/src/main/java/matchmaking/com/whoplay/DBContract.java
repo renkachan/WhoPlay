@@ -26,10 +26,10 @@ public final class DBContract {
         public static final String COLUMN_PLAYED_TIMES = "totalPlayedTimes";
 
         public static final String CREATE_TABLE =
-                "CREATE TABLE" + TABLE_NAME + "(" +
-                        _ID + "INTEGER PRIMARY KEY, " +
-                        COLUMN_PLAYER_NAME + "TEXT, " +
-                        COLUMN_PLAYED_TIMES + "TEXT, )";
+                "CREATE TABLE " + TABLE_NAME + "(" +
+                        _ID + " INTEGER PRIMARY KEY, " +
+                        COLUMN_PLAYER_NAME + " TEXT, " +
+                        COLUMN_PLAYED_TIMES + " TEXT )";
 
         public static final String DELETE_TABLE =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -48,7 +48,7 @@ public final class DBContract {
             String selection = COLUMN_PLAYER_NAME + "=?";
             String[] selectionArgs = {playerName};
             db.delete(TABLE_NAME, selection, selectionArgs);
-            //db.execSQL("DELETE FROM" + TABLE_NAME + "WHERE" + COLUMN_PLAYER_NAME + "= '" + playerName + "'" );
+            //db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_PLAYER_NAME + " = '" + playerName + "'" );
         }
 
         public static ArrayList<PlayerData> getData(SQLiteDatabase db) {

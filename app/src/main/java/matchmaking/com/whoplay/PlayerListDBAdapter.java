@@ -18,47 +18,58 @@ import java.util.ArrayList;
 
 public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
 
-        public PlayerListDBAdapter(Context context, int resource, ArrayList<PlayerData> item) {
-            super(context, resource, item);
+    public PlayerListDBAdapter(Context context, int resource, ArrayList<PlayerData> item) {
+        super(context, resource, item);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            view = inflater.inflate(R.layout.blueprint_player_list_db, null);
         }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final ArrayList<PlayerData> localPlayerList = new ArrayList<PlayerData>();
-            View view = convertView;
-            if (view == null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                view = inflater.inflate(R.layout.blueprint_player_list_db, null);
-            }
+        final PlayerData playerData = getItem(position);
+        final int fPosition = position;
 
-            PlayerData playerData = getItem(position);
-            final int fPosition = position;
+        if (playerData != null) {
+            TextView txt;
+            final CheckBox checkBox;
 
-            if (playerData != null) {
-                TextView txt;
-                final CheckBox checkBox;
-                checkBox = (CheckBox)view.findViewById(R.id.checkBox);
-                txt = (TextView) view.findViewById(R.id.blueprint_playerName);
-                txt.setText(playerData.getName());
-                checkBox.setText(playerData.getName());
-                txt = (TextView) view.findViewById(R.id.blueprint_played_times);
-                txt.setText(String.format("%d", playerData.getPlayedTimes()));
+            checkBox = (CheckBox)view.findViewById(R.id.checkBox);
+            checkBox.setText(playerData.getName());
 
+            txt = (TextView) view.findViewById(R.id.blueprint_playerName);
+            txt.setText(playerData.getName());
 
+//            txt = (TextView) view.findViewById(R.id.blueprint_played_times);
+//            txt.setText(String.format("%d", playerData.getPlayedTimes()));
 
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        PlayerData choosenPlayer = new PlayerData(checkBox.getText().toString(), DataManager.getInstance().playerDataInDb.get(DataManager.getInstance().playerDataInDb.indexOf(checkBox.getText().toString())).totalPlayedTimes);
-                        if (checkBox.isChecked()) {
-                            localPlayerList.add(choosenPlayer);
-                        } else {
-                            localPlayerList.remove(choosenPlayer);
-                        }
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                    PlayerData choosenPlayer = new PlayerData(checkBox.getText().toString(), DataManager.getInstance().playerDataInDb.get(DataManager.getInstance().playerDataInDb.indexOf(checkBox.getText().toString())).totalPlayedTimes);
+                    if (checkBox.isChecked()) {
+                        listener.onInsertPlayer(playerData);
+                    } else {
+                        listener.onRemovePlayer(playerData);
                     }
-                });
-            }
-            return view;
+                }
+            });
         }
+        return view;
+    }
+
+    /**
+     * Listener
+     */
+    public interface InsertPlayerListener {
+        void onInsertPlayer(PlayerData data);
+        void onRemovePlayer(PlayerData data);
+    }
+    private InsertPlayerListener listener;
+    public void setInsertPlayerListener(InsertPlayerListener listener) {
+        this.listener = listener;
+    }
 }

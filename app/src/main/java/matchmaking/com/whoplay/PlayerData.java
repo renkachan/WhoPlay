@@ -28,6 +28,10 @@ public class PlayerData {
         return name;
     }
 
+    public int getTotalPlayedTimes ()
+    {
+        return  totalPlayedTimes;
+    }
     public int getPlayedTimes() {
         return playedTimes;
     }

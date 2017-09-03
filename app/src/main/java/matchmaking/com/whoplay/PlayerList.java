@@ -71,7 +71,9 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
         }
         else    {
             DataManager.getInstance().playerData.add(newData);
-           // updateDB(newData.getName());
+            DBHandler handler =  new DBHandler(this);
+            DBContract.TABLE_USERS.insertData(handler.getWritableDatabase(), strPlayerName, 0);
+            handler.close();
             updateUI();
             dialog.dismiss();
         }

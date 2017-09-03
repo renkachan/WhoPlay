@@ -20,7 +20,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="New Player"
             android:onClick="onAdd"
             android:id="@+id/add"/>
 
@@ -30,7 +30,7 @@
             android:onClick= "goToDBActivity"
             android:id="@+id/readDB"
             android:textAlignment="center"
-            android:text="Saved Data"/>
+            android:text="Regular player"/>
 
         <Button
             android:layout_width="wrap_content"
