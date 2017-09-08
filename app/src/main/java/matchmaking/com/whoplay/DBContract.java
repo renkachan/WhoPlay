@@ -44,6 +44,14 @@ public final class DBContract {
             return db.insert(TABLE_NAME, null, values);
         }
 
+        public static void updateData (SQLiteDatabase db, String playerName)
+        {
+            db.execSQL("update " + TABLE_NAME
+                    + " set " +  COLUMN_PLAYED_TIMES + " = " + COLUMN_PLAYED_TIMES + " + 1 where "
+                    + COLUMN_PLAYER_NAME  + " = '" + playerName + "'");
+        }
+
+
         public static void deleteData(SQLiteDatabase db, String playerName) {
             String selection = COLUMN_PLAYER_NAME + "=?";
             String[] selectionArgs = {playerName};

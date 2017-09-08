@@ -43,13 +43,12 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
             txt = (TextView) view.findViewById(R.id.blueprint_playerName);
             txt.setText(playerData.getName());
 
-//            txt = (TextView) view.findViewById(R.id.blueprint_played_times);
-//            txt.setText(String.format("%d", playerData.getPlayedTimes()));
+            txt = (TextView) view.findViewById(R.id.blueprint_totalPlayedTimes);
+            txt.setText(String.format("%d", playerData.getTotalPlayedTimes()));;
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                    PlayerData choosenPlayer = new PlayerData(checkBox.getText().toString(), DataManager.getInstance().playerDataInDb.get(DataManager.getInstance().playerDataInDb.indexOf(checkBox.getText().toString())).totalPlayedTimes);
                     if (checkBox.isChecked()) {
                         listener.onInsertPlayer(playerData);
                     } else {

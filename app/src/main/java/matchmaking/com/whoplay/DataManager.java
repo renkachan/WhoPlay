@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DataManager {
     private static DataManager mInstance;
-    public static DataManager getInstance() {
+    public  static DataManager  getInstance() {
         if (mInstance == null) {
             mInstance = new DataManager();
         }

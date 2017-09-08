@@ -84,7 +84,15 @@ public class MatchStart extends AppCompatActivity {
             ((TextView)findViewById(playerPosition[i])).setText((playerList.get(randomList.get(i))).getName().toString());
             DataManager.getInstance().playerData.get(DataManager.getInstance().playerData.indexOf(playerList.get(randomList.get(i)))).addPlayedTimes();
             findViewById(playerPosition[i]).setVisibility(View.VISIBLE);
+            updatePlayedTimeToDb(playerList.get(randomList.get(i)).getName().toString());
         }
+    }
+
+    public  void updatePlayedTimeToDb (String playerName)
+    {
+        DBHandler handler =  new DBHandler(this);
+        DBContract.TABLE_USERS.updateData(handler.getWritableDatabase(),playerName);
+        handler.close();
     }
 
     public void  onNextActivity (View v) {
