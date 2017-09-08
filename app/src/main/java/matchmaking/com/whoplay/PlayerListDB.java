@@ -1,11 +1,14 @@
 package matchmaking.com.whoplay;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,11 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_list_players_db);
-        retriveTheList ();
+        retriveTheList();
+        updateUI();
+    }
+     private  void updateUI()
+     {
         PlayerListDBAdapter adapter = new PlayerListDBAdapter(
                 this, R.layout.blueprint_player_list_db, DataManager.getInstance().playerDataInDb);
         adapter.setInsertPlayerListener(this);
@@ -42,6 +49,47 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
         }
         Intent i = new Intent(this,PlayerList.class);
         startActivity(i);
+    }
+
+    public void onDelete (View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(playerFromDb.size() > 0)
+        {
+            builder.setMessage("Deleting all player from regular player list, are you sure?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                for (int i = 0; i < playerFromDb.size(); i++) {
+                    dialog.cancel();
+                    DataManager.getInstance().playerDataInDb.remove(DataManager.getInstance().playerDataInDb.indexOf(playerFromDb.get(i)));
+                    playerFromDb.clear();
+                    updateUI();
+                }
+                }
+            });
+
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+        }
+        else
+        {
+            builder.setMessage("No player is selected");
+
+            builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+        }
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
