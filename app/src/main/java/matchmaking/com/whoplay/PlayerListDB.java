@@ -47,6 +47,7 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
         for (int i=0; i<playerFromDb.size(); i++) {
             DataManager.getInstance().playerData.add(playerFromDb.get(i));
         }
+
         Intent i = new Intent(this,PlayerList.class);
         startActivity(i);
     }
@@ -54,6 +55,7 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
     public void onDelete (View v)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         if(playerFromDb.size() > 0)
         {
             builder.setMessage("Deleting all player from regular player list, are you sure?");

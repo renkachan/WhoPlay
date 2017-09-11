@@ -26,9 +26,9 @@ public class RandomPlayers {
     public ArrayList<Integer> matchMakingPlayers() {
         Integer numberOfPlayer = 0;
         Random r = new Random();
-       // ArrayList<PlayerData> playerList = DataManager.getInstance().playerData;
         ArrayList <Integer> randomNumber = new ArrayList<>();
         int totalPlayer = 0;
+
         if (matchType == "2x2") {
             totalPlayer = 4;
         }

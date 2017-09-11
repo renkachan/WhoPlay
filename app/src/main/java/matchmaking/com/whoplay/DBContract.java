@@ -62,10 +62,12 @@ public final class DBContract {
         public static ArrayList<PlayerData> getData(SQLiteDatabase db) {
             Cursor cursor = db.rawQuery("select * from " + TABLE_NAME, null);
             ArrayList<PlayerData> items = new ArrayList<>();
+
             while (cursor.moveToNext())
             {
                 items.add(addItem(cursor));
             }
+
             cursor.close();
             return items;
         }

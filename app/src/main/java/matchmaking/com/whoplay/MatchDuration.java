@@ -31,6 +31,7 @@ public class MatchDuration extends AppCompatActivity {
 
     public void addTextChangeListener() {
         final EditText second = (EditText) findViewById(R.id.editTextSecond);
+
         second.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,6 +82,7 @@ public class MatchDuration extends AppCompatActivity {
 
             int left = Integer.parseInt(String.valueOf(DataManager.getInstance().matchType.charAt(0)));
             int right = Integer.parseInt(String.valueOf(DataManager.getInstance().matchType.charAt(2)));
+
             if (DataManager.getInstance().playerData.size() < (left + right))   {
                 Toast.makeText(this, "Not Enough Players", Toast.LENGTH_LONG).show();
             }

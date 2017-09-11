@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MatchStart extends AppCompatActivity {
     Handler handler = new Handler();
     int totalTime;
-    ArrayList<PlayerData> playerList = playerPool();
+    ArrayList<PlayerData> playerList = getPlayerPool();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +33,14 @@ public class MatchStart extends AppCompatActivity {
         setPlayerPosition();
     }
 
-    private  ArrayList<PlayerData> playerPool ()    {
+    private  ArrayList<PlayerData> getPlayerPool ()    {
         MatchPlayers playersPool = new MatchPlayers();
         ArrayList<PlayerData> playersList = new ArrayList<>();
         playersList.addAll(DataManager.getInstance().playerData);
         ArrayList<Integer> playedTimes = playersPool.whoPlayedMin();
         ArrayList<PlayerData> players = new ArrayList<>();
-        Log.i("tag","" + playedTimes);
-        Log.i("tag","" + DataManager.getInstance().playerData);
         int totalPlayer = 0;
+
         if (DataManager.getInstance().matchType == "2x2")   {
             totalPlayer = 4;
         }
@@ -51,6 +50,7 @@ public class MatchStart extends AppCompatActivity {
         else if (DataManager.getInstance().matchType == "5x5")  {
             totalPlayer = 10;
         }
+
         for ( int i = 0; i < totalPlayer; i++ )
             {
                 for (int j = 0; j < playersList.size();j++) {
@@ -84,6 +84,7 @@ public class MatchStart extends AppCompatActivity {
             ((TextView)findViewById(playerPosition[i])).setText((playerList.get(randomList.get(i))).getName().toString());
             DataManager.getInstance().playerData.get(DataManager.getInstance().playerData.indexOf(playerList.get(randomList.get(i)))).addPlayedTimes();
             findViewById(playerPosition[i]).setVisibility(View.VISIBLE);
+
             updatePlayedTimeToDb(playerList.get(randomList.get(i)).getName().toString());
         }
     }
@@ -109,6 +110,7 @@ public class MatchStart extends AppCompatActivity {
         Button stopButton = (Button)findViewById(R.id.stopBtn);
         final TextView timeInMinute = (TextView) findViewById(R.id.editTextMinute);
         final TextView timeInSecond = (TextView) findViewById(R.id.editTextSecond);
+
         startButton.setVisibility(View.GONE);
         stopButton.setVisibility(View.VISIBLE);
 
@@ -119,14 +121,12 @@ public class MatchStart extends AppCompatActivity {
                 int minuteLeft = totalTime / 60;
                 int secondLeft = totalTime % 60;
 
-                Log.i("time", totalTime + " - " + minuteLeft + ":" + secondLeft);
                 timeInMinute.setText((minuteLeft < 10) ? "0" + minuteLeft : "" + minuteLeft);
                 timeInSecond.setText((secondLeft < 10) ? "0" + secondLeft : "" + secondLeft);
 
                 if (totalTime > 0) {
                     setCountDown();
                 }
-
             }
         }, 1000);
     }
@@ -138,11 +138,11 @@ public class MatchStart extends AppCompatActivity {
         stopButton.setVisibility(View.GONE);
         startButton.setVisibility(View.VISIBLE);
     }
+
     public  void nextActivity (View v)  {
         Intent i = new Intent(this,SetPayment.class);
         startActivity(i);
     }
-
 
   public void previousActivity (View v)   {
       for (int i = 0; i < playerList.size(); i++)   {

@@ -14,6 +14,7 @@ public class DataManager {
         }
         return mInstance;
     }
+
     ArrayList<PlayerData> playerData;
     ArrayList<PlayerData> playerDataInDb;
     int payed = 0;

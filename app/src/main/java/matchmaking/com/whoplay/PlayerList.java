@@ -71,6 +71,7 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
         }
         else    {
             DataManager.getInstance().playerData.add(newData);
+
             DBHandler handler =  new DBHandler(this);
             DBContract.TABLE_USERS.insertData(handler.getWritableDatabase(), strPlayerName, 0);
             handler.close();
@@ -84,14 +85,6 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
         Intent i = new Intent(this , PlayerListDB.class);
         startActivity(i);
     }
-//
-//    public  void updateDB (String newPlayerData)
-//    {
-//        DBHandler handler = new DBHandler(this);
-//        DBContract.TABLE_USERS.insertData(
-//                handler.getWritableDatabase() , newPlayerData, "0");
-//        handler.close();
-//    }
 
     public void onDelete(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

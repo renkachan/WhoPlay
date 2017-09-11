@@ -49,16 +49,13 @@ public class SetPayment extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 amount.removeTextChangedListener(this);
-//                if(amount.getText().toString().contains(","))   {
-//                    amount.getText().toString().replaceAll(",","");
-//                }
-                //Double amountInDouble = Double.parseDouble(amount.getText().toString());
                 DecimalFormat formatter = new DecimalFormat("#,###,###");
+
                 if(amount.getText().toString().contains(","))   {
                     amount.setText(amount.getText().toString().replace(",",""));
                 }
+
                 String amountFormatted = formatter.format(Integer.parseInt(amount.getText().toString()));
-               // String amountFormatted = NumberFormat.getNumberInstance(Locale.US).format(amountInDouble);
                 amount.setText(amountFormatted);
                 amount.setSelection(amount.getText().length());
                 amount.addTextChangedListener(this);
