@@ -46,15 +46,20 @@ public class PaymentGenerator extends AppCompatActivity implements  PlayerPaymen
 
     public void seePayment(View view)
     {
-        view1.setVisibility(View.GONE);
-        setContentView(view2);
-        PlayerPaymentAdapter adapter = new PlayerPaymentAdapter(this,R.layout.blue_print_payment,DataManager.getInstance().playerData);
-        adapter.setAddOrRemovedPayment(this);
-        ListView listView = (ListView)findViewById(R.id.playerToPay);
-        listView.setAdapter(adapter);
-        TextView expPayment = (TextView)findViewById(R.id.expPayment);
-        String  payment = String.valueOf((DataManager.getInstance().playerData.size() * DataManager.getInstance().setPayment));
-        expPayment.setText(payment);
+        if(DataManager.getInstance().setPayment != 0 ) {
+            view1.setVisibility(View.GONE);
+            setContentView(view2);
+            PlayerPaymentAdapter adapter = new PlayerPaymentAdapter(this, R.layout.blue_print_payment, DataManager.getInstance().playerData);
+            adapter.setAddOrRemovedPayment(this);
+            ListView listView = (ListView) findViewById(R.id.playerToPay);
+            listView.setAdapter(adapter);
+            TextView expPayment = (TextView) findViewById(R.id.expPayment);
+            String payment = String.valueOf((DataManager.getInstance().playerData.size() * DataManager.getInstance().setPayment));
+            expPayment.setText(payment);
+        }
+        else    {
+            Toast.makeText(this, "Fee cannot be empty",Toast.LENGTH_LONG).show();
+    }
 
 
     }
@@ -73,6 +78,10 @@ public class PaymentGenerator extends AppCompatActivity implements  PlayerPaymen
         setContentView(view1);
     }
 
+    public void backToMatchStart(View view) {
+        Intent i = new  Intent(this,MatchStart.class);
+        startActivity(i);
+    }
 
         @Override
         public  void OnSuccessAddOrRemovePayment ()    {

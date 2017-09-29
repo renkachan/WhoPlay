@@ -1,8 +1,5 @@
 package matchmaking.com.whoplay;
 
-/**
- * Created by Hubert on 7/29/2017.
- */
 
 public class PlayerData {
     String name;
