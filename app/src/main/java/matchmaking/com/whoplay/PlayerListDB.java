@@ -42,7 +42,7 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
         handler.close();
     }
 
-    public void onConfirmation (View v)
+    public void onConfirmationAddPlayersToSingleTonePlayerData (View v)
     {
         for (int i=0; i<playerFromDb.size(); i++) {
             DataManager.getInstance().playerData.add(playerFromDb.get(i));

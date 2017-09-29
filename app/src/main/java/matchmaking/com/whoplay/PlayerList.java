@@ -22,7 +22,7 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_player);
+        setContentView(R.layout.layout_player_list);
         updateUI();
     }
 

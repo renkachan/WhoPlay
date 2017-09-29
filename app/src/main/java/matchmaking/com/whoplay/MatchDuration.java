@@ -70,11 +70,12 @@ public class MatchDuration extends AppCompatActivity {
         EditText minute = (EditText) findViewById(R.id.editTextMinute);
         EditText second = (EditText) findViewById(R.id.editTextSecond);
 
-        if (minute.getText().toString().equalsIgnoreCase("00") || minute.getText().toString().equals("")) {
-            if (second.getText().toString().equalsIgnoreCase("00") || second.getText().toString().equals("")) {
+        if ((minute.getText().toString().equalsIgnoreCase("00") && second.getText().toString().equalsIgnoreCase("00"))
+            || (minute.getText().toString().equalsIgnoreCase("0") && second.getText().toString().equalsIgnoreCase("0"))
+            || (minute.getText().toString().equals("") && (second.getText().toString().equals(""))))
+         {
                 Toast.makeText(this, "Time Cannot Be Empty", Toast.LENGTH_LONG).show();
-            }
-        }
+         }
         else {
             if (second.getText().toString().equals("")) {
                 second.setText("00");
@@ -86,7 +87,15 @@ public class MatchDuration extends AppCompatActivity {
             if (DataManager.getInstance().playerData.size() < (left + right))   {
                 Toast.makeText(this, "Not Enough Players", Toast.LENGTH_LONG).show();
             }
-            else {
+            else    {
+                if (minute.getText().toString().length() < 2)
+                {
+                    minute.setText("0" + minute.getText().toString());
+                }
+                if (second.getText().toString().length() < 2)
+                {
+                    second.setText("0" + second.getText().toString());
+                }
                 DataManager.getInstance().matchDurationInMinute = minute.getText().toString();
                 DataManager.getInstance().matchDurationInSeconds = second.getText().toString();
                 Intent i = new Intent(this, MatchStart.class);

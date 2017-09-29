@@ -1,6 +1,7 @@
 package matchmaking.com.whoplay;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
  */
 
 public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
-
     public PlayerListDBAdapter(Context context, int resource, ArrayList<PlayerData> item) {
         super(context, resource, item);
     }
@@ -28,17 +28,19 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.blueprint_player_list_db, null);
+
         }
 
         final PlayerData playerData = getItem(position);
         final int fPosition = position;
 
+
         if (playerData != null) {
+
+
             TextView txt;
             final CheckBox checkBox;
-
             checkBox = (CheckBox)view.findViewById(R.id.checkBox);
-            checkBox.setText(playerData.getName());
 
             txt = (TextView) view.findViewById(R.id.blueprint_playerName);
             txt.setText(playerData.getName());
@@ -49,6 +51,7 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    int getPosition = (Integer) compoundButton.getTag();
                     if (checkBox.isChecked()) {
                         listener.onInsertPlayer(playerData);
                     } else {
@@ -56,7 +59,10 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
                     }
                 }
             });
+            view.setTag(checkBox);
+            checkBox.setTag(position);
         }
+
         return view;
     }
 
@@ -68,6 +74,7 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
         void onRemovePlayer(PlayerData data);
     }
     private InsertPlayerListener listener;
+
     public void setInsertPlayerListener(InsertPlayerListener listener) {
         this.listener = listener;
     }

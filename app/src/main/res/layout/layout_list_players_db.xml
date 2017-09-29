@@ -26,11 +26,21 @@
             android:text="Delete" />
 
         <Button
-            android:id="@+id/confirmBtn"
-            android:onClick= "onConfirmation"
+            android:id="@+id/checkAllBtn"
+            android:text="Check All"
+            android:onClick="checkAllThePlayers"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ok" />
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:onClick= "onConfirmationAddPlayersToSingleTonePlayerData"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ok" />
 
 </LinearLayout>
