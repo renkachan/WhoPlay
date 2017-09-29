@@ -20,15 +20,24 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="New Player"
             android:onClick="onAdd"
             android:id="@+id/add"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick= "goToDBActivity"
+            android:id="@+id/readDB"
+            android:textAlignment="center"
+            android:text="Regular player"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="onDelete"
             android:text="Delete All"/>
+
     </LinearLayout>
 
     <Button

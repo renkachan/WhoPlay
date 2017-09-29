@@ -10,16 +10,15 @@ import java.util.Comparator;
  */
 
 public class MatchPlayers {
-    String matchType;
-    //public MatchPlayers (String matchType)  {
-   //     this.matchType = matchType;
-   // }
+
     public ArrayList<Integer>  whoPlayedMin ()   {
         ArrayList<Integer> playedTimes = new ArrayList<>();
         int totalOfPlayer = DataManager.getInstance().playerData.size();
+
         for ( int i = 0; i < totalOfPlayer; i++) {
                    playedTimes.add(DataManager.getInstance().playerData.get(i).getPlayedTimes());
                 }
+
         Collections.sort(playedTimes);
         return playedTimes;
     }

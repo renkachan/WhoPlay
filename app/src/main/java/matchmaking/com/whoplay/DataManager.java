@@ -8,13 +8,15 @@ import java.util.ArrayList;
 
 public class DataManager {
     private static DataManager mInstance;
-    public static DataManager getInstance() {
+    public  static DataManager  getInstance() {
         if (mInstance == null) {
             mInstance = new DataManager();
         }
         return mInstance;
     }
+
     ArrayList<PlayerData> playerData;
+    ArrayList<PlayerData> playerDataInDb;
     int payed = 0;
     int setPayment = 0;
     String matchType = "";
@@ -23,6 +25,7 @@ public class DataManager {
 
     private DataManager() {
         playerData = new ArrayList<PlayerData>();
+        playerDataInDb = new ArrayList<PlayerData>();
     }
 
 }
