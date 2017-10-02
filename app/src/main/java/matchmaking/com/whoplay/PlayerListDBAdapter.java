@@ -12,59 +12,88 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by robert.arifin on 28/08/2017.
  */
 
 public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
-    public PlayerListDBAdapter(Context context, int resource, ArrayList<PlayerData> item) {
-        super(context, resource, item);
+    private  ArrayList<PlayerData> playerList = new ArrayList<PlayerData>();
+
+    public PlayerListDBAdapter(Context context, int resource, ArrayList<PlayerData> list) {
+        super(context, resource, list);
+        playerList = list;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
+        final ViewHolder viewHolder;
+        final PlayerData playerData = getItem(position);
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.blueprint_player_list_db, null);
+            viewHolder = new ViewHolder();
+            viewHolder.checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+            viewHolder.playerName = (TextView)view.findViewById(R.id.blueprint_playerName);
+            viewHolder.playedTimes = (TextView) view.findViewById(R.id.blueprint_totalPlayedTimes);
 
-        }
-
-        final PlayerData playerData = getItem(position);
-        final int fPosition = position;
-
-
-        if (playerData != null) {
-
-
-            TextView txt;
-            final CheckBox checkBox;
-            checkBox = (CheckBox)view.findViewById(R.id.checkBox);
-
-            txt = (TextView) view.findViewById(R.id.blueprint_playerName);
-            txt.setText(playerData.getName());
-
-            txt = (TextView) view.findViewById(R.id.blueprint_totalPlayedTimes);
-            txt.setText(String.format("%d", playerData.getTotalPlayedTimes()));;
-
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    int getPosition = (Integer) compoundButton.getTag();
-                    if (checkBox.isChecked()) {
-                        listener.onInsertPlayer(playerData);
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    int getPosition = (Integer) buttonView.getTag();
+                    playerList.get(getPosition).setSelected(buttonView.isChecked());
+                    if ( playerList.get(getPosition).isSelected() == true) {
+                        listener.onInsertPlayer(playerList.get(getPosition));
                     } else {
-                        listener.onRemovePlayer(playerData);
+                        listener.onRemovePlayer(playerList.get(getPosition));
                     }
+
                 }
             });
-            view.setTag(checkBox);
-            checkBox.setTag(position);
+            view.setTag(viewHolder);
+            view.setTag(R.id.checkBox, viewHolder.checkBox);
+            view.setTag(R.id.blueprint_player_name, viewHolder.playerName);
+            view.setTag(R.id.blueprint_totalPlayedTimes, viewHolder.playedTimes);
+
+        }
+        else    {
+             viewHolder = (ViewHolder) view.getTag();
         }
 
+       // final PlayerData playerData = getItem(position);
+     //   final int fPosition = position;
+
+
+//        if (playerData != null) {
+//
+//            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//
+//                    if ( viewHolder.getCheckBox().isChecked()) {
+//                        listener.onInsertPlayer(playerData);
+//                    } else {
+//                        listener.onRemovePlayer(playerData);
+//                    }
+//                }
+//            });
+
+//        }
+        viewHolder.checkBox.setTag(position);
+        viewHolder.playerName.setText(playerList.get(position).getName());
+        viewHolder.playedTimes.setText(String.format("%d", playerList.get(position).getTotalPlayedTimes()));
+        viewHolder.checkBox.setChecked(playerList.get(position).isSelected());
         return view;
     }
+    private static class ViewHolder {
+        private CheckBox checkBox;
+        private TextView playerName, playedTimes;
+    }
+
+
 
     /**
      * Listener

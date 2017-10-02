@@ -5,6 +5,7 @@ public class PlayerData {
     String name;
     int playedTimes;
     int totalPlayedTimes;
+    private boolean selected;
 
     public PlayerData(String name,int totalPlayedTimes) {
         this.name = name;
@@ -31,5 +32,17 @@ public class PlayerData {
     }
     public int getPlayedTimes() {
         return playedTimes;
+    }
+
+    public boolean isCheckBoxSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public Boolean isSelected ()   {
+        return selected;
     }
 }
