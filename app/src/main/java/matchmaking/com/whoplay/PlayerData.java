@@ -5,13 +5,12 @@ public class PlayerData {
     String name;
     int playedTimes;
     int totalPlayedTimes;
-    private boolean selected;
+    private boolean selected = false;
 
     public PlayerData(String name,int totalPlayedTimes) {
         this.name = name;
         playedTimes = 0;
         this.totalPlayedTimes = totalPlayedTimes;
-
     }
 
     public void addPlayedTimes() {

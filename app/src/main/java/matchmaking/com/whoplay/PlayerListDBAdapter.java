@@ -27,10 +27,10 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         final ViewHolder viewHolder;
-        final PlayerData playerData = getItem(position);
+        //final PlayerData playerData = getItem(position);
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.blueprint_player_list_db, null);
@@ -39,20 +39,33 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
             viewHolder.playerName = (TextView)view.findViewById(R.id.blueprint_playerName);
             viewHolder.playedTimes = (TextView) view.findViewById(R.id.blueprint_totalPlayedTimes);
 
-            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    int getPosition = (Integer) buttonView.getTag();
-                    playerList.get(getPosition).setSelected(buttonView.isChecked());
-                    if ( playerList.get(getPosition).isSelected() == true) {
-                        listener.onInsertPlayer(playerList.get(getPosition));
+                    int innerPosition = (Integer) buttonView.getTag();
+                    playerList.get(innerPosition).setSelected(buttonView.isChecked());
+                    if (playerList.get(innerPosition).isSelected()) {
+                        listener.onAddPlayer(playerList.get(innerPosition));
                     } else {
-                        listener.onRemovePlayer(playerList.get(getPosition));
+                        listener.onRemovePlayer(playerList.get(innerPosition));
                     }
-
+                   // listener.onInsertRemovePlayer(playerList.get(getPosition), buttonView.isChecked());
                 }
             });
+
+//            playerList.get(position).setBooleanListener(new  PlayerData.BooleanListener()   {
+//
+//                @Override
+//                public void onStateChange (Boolean result) {
+//                    if ( playerList.get(position).isSelected() == true) {
+//                        listener.onInsertPlayer(playerList.get(getPosition));
+//                    } else {
+//                        listener.onRemovePlayer(playerList.get(getPosition));
+//                    }
+//                }
+//            }
+//            );
+
             view.setTag(viewHolder);
             view.setTag(R.id.checkBox, viewHolder.checkBox);
             view.setTag(R.id.blueprint_player_name, viewHolder.playerName);
@@ -82,10 +95,19 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
 //            });
 
 //        }
-        viewHolder.checkBox.setTag(position);
+        viewHolder.checkBox.setTag(Integer.valueOf(position));
         viewHolder.playerName.setText(playerList.get(position).getName());
         viewHolder.playedTimes.setText(String.format("%d", playerList.get(position).getTotalPlayedTimes()));
         viewHolder.checkBox.setChecked(playerList.get(position).isSelected());
+//        if(!playerList.get(position).isSelected()) {
+//            listener.onRemovePlayer(playerList.get(position));
+//        }
+//        else    {
+//            listener.onInsertPlayer(playerList.get(position));
+//        }
+
+
+
         return view;
     }
     private static class ViewHolder {
@@ -98,13 +120,19 @@ public class PlayerListDBAdapter extends  ArrayAdapter<PlayerData> {
     /**
      * Listener
      */
-    public interface InsertPlayerListener {
-        void onInsertPlayer(PlayerData data);
+    public interface InsertRemovePlayerListener {
         void onRemovePlayer(PlayerData data);
+        void onAddPlayer(PlayerData data);
     }
-    private InsertPlayerListener listener;
+    private InsertRemovePlayerListener listener;
 
-    public void setInsertPlayerListener(InsertPlayerListener listener) {
+    public void setInsertPlayerListener(InsertRemovePlayerListener listener) {
         this.listener = listener;
     }
+
+    /**
+     * boolean listener
+     */
+
+
 }

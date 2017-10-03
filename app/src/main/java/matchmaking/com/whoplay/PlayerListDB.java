@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * Created by robert.arifin on 28/08/2017.
  */
 
-public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapter.InsertPlayerListener {
+public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapter.InsertRemovePlayerListener {
     ArrayList<PlayerData> playerFromDb = new ArrayList<>();
 
     @Override
@@ -44,7 +45,7 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
 
     public void onConfirmationAddPlayersToSingleTonePlayerData (View v)
     {
-        for (int i=0; i<playerFromDb.size(); i++) {
+        for (int i= 0; i<playerFromDb.size(); i++) {
             DataManager.getInstance().playerData.add(playerFromDb.get(i));
         }
 
@@ -66,9 +67,9 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
                 for (int i = 0; i < playerFromDb.size(); i++) {
                     dialog.cancel();
                     DataManager.getInstance().playerDataInDb.remove(DataManager.getInstance().playerDataInDb.indexOf(playerFromDb.get(i)));
-                    playerFromDb.clear();
                     updateUI();
                 }
+                    playerFromDb.clear();
                 }
             });
 
@@ -94,8 +95,19 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
         dialog.show();
     }
 
+//      @Override
+//      public  void  onInsertRemovePlayer(PlayerData data, Boolean playerState)  {
+//          if(playerState == false ) {
+//              playerFromDb.remove(data);
+//          }
+//          else  {
+//              playerFromDb.add(data);
+//          }
+//      }
+
     @Override
-    public void onInsertPlayer(PlayerData data) {
+    public void onAddPlayer(PlayerData data) {
+        if(!playerFromDb.contains(data))
         playerFromDb.add(data);
     }
 
