@@ -44,7 +44,7 @@ public class PlayerListAdapter extends ArrayAdapter<PlayerData> {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DataManager.getInstance().playerData.remove(fPosition);
+                    DataManager.playerData.remove(fPosition);
                     deletePlayerListener.onDeletePlayerSuccess();
                 }
             });

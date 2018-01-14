@@ -27,7 +27,7 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
     }
 
     public void updateUI() {
-        PlayerListAdapter adapter = new PlayerListAdapter(this, R.layout.blue_print, DataManager.getInstance().playerData);
+        PlayerListAdapter adapter = new PlayerListAdapter(this, R.layout.blue_print, DataManager.playerData);
         adapter.setDeletePlayerListener(this);
         ListView listView = (ListView) findViewById(R.id.playerList);
         listView.setAdapter(adapter);
@@ -70,7 +70,7 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
             playerName.setError("The field cannot be empty");
         }
         else    {
-            DataManager.getInstance().playerData.add(newData);
+            DataManager.playerData.add(newData);
 
             DBHandler handler =  new DBHandler(this);
             DBContract.TABLE_USERS.insertData(handler.getWritableDatabase(), strPlayerName, 0);
@@ -89,14 +89,14 @@ public class PlayerList extends AppCompatActivity implements PlayerListAdapter.D
     public void onDelete(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        if (DataManager.getInstance().playerData.size() > 0) {
+        if (DataManager.playerData.size() > 0) {
             builder.setMessage("Deleting all player in this session, are you sure?");
 
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
-                    DataManager.getInstance().playerData.clear();
+                    DataManager.playerData.clear();
                     updateUI();
                 }
             });

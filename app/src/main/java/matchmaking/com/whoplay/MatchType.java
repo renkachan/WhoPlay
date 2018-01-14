@@ -18,18 +18,18 @@ public class MatchType extends AppCompatActivity {
     }
 
     public void matchTwoVsTwo(View v) {
-        DataManager.getInstance().matchType = "2x2";
+        DataManager.matchType = "2x2";
         changeActivity();
 
     }
 
     public void matchThreeVsThree(View v) {
-        DataManager.getInstance().matchType = "3x3";
+        DataManager.matchType = "3x3";
         changeActivity();
     }
 
     public void matchFiveVsFive(View v) {
-        DataManager.getInstance().matchType = "5x5";
+        DataManager.matchType = "5x5";
         changeActivity();
     }
 

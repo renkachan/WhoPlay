@@ -37,10 +37,10 @@ public class PlayerPaymentAdapter extends ArrayAdapter<PlayerData> {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (checkBox.isChecked()) {
-                        DataManager.getInstance().payed++;
+                        DataManager.payed++;
                     } else {
-                        if (DataManager.getInstance().payed > 0) {
-                            DataManager.getInstance().payed--;
+                        if (DataManager.payed > 0) {
+                            DataManager.payed--;
                         }
                     }
                     paymentListener.OnSuccessAddOrRemovePayment();

@@ -7,25 +7,11 @@ import java.util.ArrayList;
  */
 
 public class DataManager {
-    private static DataManager mInstance;
-    public  static DataManager  getInstance() {
-        if (mInstance == null) {
-            mInstance = new DataManager();
-        }
-        return mInstance;
-    }
-
-    ArrayList<PlayerData> playerData;
-    ArrayList<PlayerData> playerDataInDb;
-    int payed = 0;
-    int setPayment = 0;
-    String matchType = "";
-    String matchDurationInMinute = "";
-    String matchDurationInSeconds = "";
-
-    private DataManager() {
-        playerData = new ArrayList<PlayerData>();
-        playerDataInDb = new ArrayList<PlayerData>();
-    }
-
+    public static ArrayList<PlayerData> playerData  = new ArrayList<PlayerData>();
+    public static ArrayList<PlayerData> playerDataInDb = new ArrayList<PlayerData>();
+    public static int payed = 0;
+    public static int setPayment = 0;
+    public static String matchType = "";
+    public static String matchDurationInMinute = "";
+    public static String matchDurationInSeconds = "";
 }

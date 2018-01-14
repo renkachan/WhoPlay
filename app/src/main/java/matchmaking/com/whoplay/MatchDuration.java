@@ -81,10 +81,10 @@ public class MatchDuration extends AppCompatActivity {
                 second.setText("00");
             }
 
-            int left = Integer.parseInt(String.valueOf(DataManager.getInstance().matchType.charAt(0)));
-            int right = Integer.parseInt(String.valueOf(DataManager.getInstance().matchType.charAt(2)));
+            int left = Integer.parseInt(String.valueOf(DataManager.matchType.charAt(0)));
+            int right = Integer.parseInt(String.valueOf(DataManager.matchType.charAt(2)));
 
-            if (DataManager.getInstance().playerData.size() < (left + right))   {
+            if (DataManager.playerData.size() < (left + right))   {
                 Toast.makeText(this, "Not Enough Players", Toast.LENGTH_LONG).show();
             }
             else    {
@@ -96,8 +96,8 @@ public class MatchDuration extends AppCompatActivity {
                 {
                     second.setText("0" + second.getText().toString());
                 }
-                DataManager.getInstance().matchDurationInMinute = minute.getText().toString();
-                DataManager.getInstance().matchDurationInSeconds = second.getText().toString();
+                DataManager.matchDurationInMinute = minute.getText().toString();
+                DataManager.matchDurationInSeconds = second.getText().toString();
                 Intent i = new Intent(this, MatchStart.class);
                 startActivity(i);
             }

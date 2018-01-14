@@ -29,7 +29,7 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
      private  void updateUI()
      {
         PlayerListDBAdapter adapter = new PlayerListDBAdapter(
-                this, R.layout.blueprint_player_list_db, DataManager.getInstance().playerDataInDb);
+                this, R.layout.blueprint_player_list_db, DataManager.playerDataInDb);
         adapter.setInsertPlayerListener(this);
         ListView listView = (ListView) findViewById(R.id.listViewPlayerDb);
         listView.setAdapter(adapter);
@@ -38,14 +38,14 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
     public  void retriveTheList ()
     {
         DBHandler handler = new DBHandler(this);
-        DataManager.getInstance().playerDataInDb = DBContract.TABLE_USERS.getData(handler.getWritableDatabase());
+        DataManager.playerDataInDb = DBContract.TABLE_USERS.getData(handler.getWritableDatabase());
         handler.close();
     }
 
     public void onConfirmationAddPlayersToSingleTonePlayerData (View v)
     {
         for (int i=0; i<playerFromDb.size(); i++) {
-            DataManager.getInstance().playerData.add(playerFromDb.get(i));
+            DataManager.playerData.add(playerFromDb.get(i));
         }
 
         Intent i = new Intent(this,PlayerList.class);
@@ -65,7 +65,7 @@ public class PlayerListDB extends AppCompatActivity implements PlayerListDBAdapt
                 dialog.cancel();
                 for (int i = 0; i < playerFromDb.size(); i++) {
                     dialog.cancel();
-                    DataManager.getInstance().playerDataInDb.remove(DataManager.getInstance().playerDataInDb.indexOf(playerFromDb.get(i)));
+                    DataManager.playerDataInDb.remove(DataManager.playerDataInDb.indexOf(playerFromDb.get(i)));
                     playerFromDb.clear();
                     updateUI();
                 }

@@ -16,20 +16,20 @@ public class PlayerPayment extends AppCompatActivity implements  PlayerPaymentAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_payment);
 
-        PlayerPaymentAdapter adapter = new PlayerPaymentAdapter(this,R.layout.blue_print_payment,DataManager.getInstance().playerData);
+        PlayerPaymentAdapter adapter = new PlayerPaymentAdapter(this,R.layout.blue_print_payment,DataManager.playerData);
         adapter.setAddOrRemovedPayment(this);
 
         ListView listView = (ListView)findViewById(R.id.playerToPay);
         listView.setAdapter(adapter);
 
         TextView expPayment = (TextView)findViewById(R.id.expPayment);
-        String  payment = String.valueOf((DataManager.getInstance().playerData.size() * DataManager.getInstance().setPayment));
+        String  payment = String.valueOf((DataManager.playerData.size() * DataManager.setPayment));
         expPayment.setText(payment);
     }
 
     public  void updateTotalPayment ()  {
         TextView total = (TextView) findViewById(R.id.totalPayment);
-        String  payment = String.valueOf(DataManager.getInstance().payed * DataManager.getInstance().setPayment);
+        String  payment = String.valueOf(DataManager.payed * DataManager.setPayment);
         total.setText(payment);
 
     }

@@ -25,27 +25,27 @@ public class MatchStart extends AppCompatActivity {
 
         TextView timeInMinute = (TextView) findViewById(R.id.editTextMinute);
         TextView timeInSecond = (TextView) findViewById(R.id.editTextSecond);
-        timeInMinute.setText(DataManager.getInstance().matchDurationInMinute);
-        timeInSecond.setText(DataManager.getInstance().matchDurationInSeconds);
-        totalTime = Integer.parseInt(DataManager.getInstance().matchDurationInMinute) * 60 + Integer.parseInt(DataManager.getInstance().matchDurationInSeconds);
+        timeInMinute.setText(DataManager.matchDurationInMinute);
+        timeInSecond.setText(DataManager.matchDurationInSeconds);
+        totalTime = Integer.parseInt(DataManager.matchDurationInMinute) * 60 + Integer.parseInt(DataManager.matchDurationInSeconds);
         setPlayerPosition();
     }
 
     private  ArrayList<PlayerData> getPlayerPool ()    {
         MatchPlayers playersPool = new MatchPlayers();
         ArrayList<PlayerData> playersList = new ArrayList<>();
-        playersList.addAll(DataManager.getInstance().playerData);
+        playersList.addAll(DataManager.playerData);
         ArrayList<Integer> playedTimes = playersPool.whoPlayedMin();
         ArrayList<PlayerData> players = new ArrayList<>();
         int totalPlayer = 0;
 
-        if (DataManager.getInstance().matchType == "2x2")   {
+        if (DataManager.matchType == "2x2")   {
             totalPlayer = 4;
         }
-        else if (DataManager.getInstance().matchType == "3x3")   {
+        else if (DataManager.matchType == "3x3")   {
             totalPlayer = 6;
         }
-        else if (DataManager.getInstance().matchType == "5x5")  {
+        else if (DataManager.matchType == "5x5")  {
             totalPlayer = 10;
         }
 
@@ -63,7 +63,7 @@ public class MatchStart extends AppCompatActivity {
     }
 
     private void setPlayerPosition ()    {
-        RandomPlayers random = new RandomPlayers(DataManager.getInstance().matchType);
+        RandomPlayers random = new RandomPlayers(DataManager.matchType);
         ArrayList<Integer> randomList = random.matchMakingPlayers();
         int[] playerPosition = {
                 R.id.player1,
@@ -80,7 +80,7 @@ public class MatchStart extends AppCompatActivity {
 
         for (int i = 0; i < randomList.size(); i++)   {
             ((TextView)findViewById(playerPosition[i])).setText((playerList.get(randomList.get(i))).getName().toString());
-            DataManager.getInstance().playerData.get(DataManager.getInstance().playerData.indexOf(playerList.get(randomList.get(i)))).addPlayedTimes();
+            DataManager.playerData.get(DataManager.playerData.indexOf(playerList.get(randomList.get(i)))).addPlayedTimes();
             findViewById(playerPosition[i]).setVisibility(View.VISIBLE);
 
             updatePlayedTimeToDb(playerList.get(randomList.get(i)).getName().toString());
@@ -144,7 +144,7 @@ public class MatchStart extends AppCompatActivity {
 
   public void previousActivity (View v)   {
       for (int i = 0; i < playerList.size(); i++)   {
-          DataManager.getInstance().playerData.get(DataManager.getInstance().playerData.indexOf(playerList.get(i))).minPlayedTimes();
+          DataManager.playerData.get(DataManager.playerData.indexOf(playerList.get(i))).minPlayedTimes();
       }
       Intent i = new Intent(this,MatchDuration.class);
       startActivity(i);

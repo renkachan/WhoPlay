@@ -37,7 +37,7 @@ public class PaymentGenerator extends AppCompatActivity implements  PlayerPaymen
     public void setPayment(View view) {
         EditText payment = (EditText) findViewById(R.id.setPayment);
         if (!payment.getText().toString().equals("")) {
-            DataManager.getInstance().setPayment = Integer.parseInt(payment.getText().toString().replaceAll(",", ""));
+            DataManager.setPayment = Integer.parseInt(payment.getText().toString().replaceAll(",", ""));
         }
         else    {
             Toast.makeText(this, "Fee cannot be empty",Toast.LENGTH_LONG).show();
@@ -46,15 +46,15 @@ public class PaymentGenerator extends AppCompatActivity implements  PlayerPaymen
 
     public void seePayment(View view)
     {
-        if(DataManager.getInstance().setPayment != 0 ) {
+        if(DataManager.setPayment != 0 ) {
             view1.setVisibility(View.GONE);
             setContentView(view2);
-            PlayerPaymentAdapter adapter = new PlayerPaymentAdapter(this, R.layout.blue_print_payment, DataManager.getInstance().playerData);
+            PlayerPaymentAdapter adapter = new PlayerPaymentAdapter(this, R.layout.blue_print_payment, DataManager.playerData);
             adapter.setAddOrRemovedPayment(this);
             ListView listView = (ListView) findViewById(R.id.playerToPay);
             listView.setAdapter(adapter);
             TextView expPayment = (TextView) findViewById(R.id.expPayment);
-            String payment = String.valueOf((DataManager.getInstance().playerData.size() * DataManager.getInstance().setPayment));
+            String payment = String.valueOf((DataManager.playerData.size() * DataManager.setPayment));
             expPayment.setText(payment);
         }
         else    {
@@ -66,7 +66,7 @@ public class PaymentGenerator extends AppCompatActivity implements  PlayerPaymen
 
         public  void updateTotalPayment ()  {
             TextView total = (TextView) findViewById(R.id.totalPayment);
-            String  payment = String.valueOf(DataManager.getInstance().payed * DataManager.getInstance().setPayment);
+            String  payment = String.valueOf(DataManager.payed * DataManager.setPayment);
             total.setText(payment);
 
         }
